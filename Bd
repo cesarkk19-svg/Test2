@@ -1,8 +1,4 @@
-local SecureLoad = function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/cesarkk19-svg/Test2/refs/heads/main/Bd"))()
-end
-
-local Finity = SecureLoad()
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/CenteredSniper/Kenzen/refs/heads/main/Modules/FinityUILib.lua"))()
 local FinityWindow = Finity.new(true)
 FinityWindow.ChangeToggleKey(Enum.KeyCode.Insert)
 
@@ -130,13 +126,11 @@ Sas:Cheat("Toggle", "Push Loop", function(state)
     end
 end)
 
-local originalFunctions = {FireServer = getmetatable(game:GetService("ReplicatedStorage")).__index.FireServer}
-
 game:GetService("Players").LocalPlayer.CharacterRemoving:Connect(function()
-    for _, loop in pairs(loopFunctions) do
-        loop = false
+    for k in pairs(loopFunctions) do
+        loopFunctions[k] = false
     end
-    for _, godMode in pairs(godModes) do
-        godMode = false
+    for k in pairs(godModes) do
+        godModes[k] = false
     end
 end)
