@@ -16,7 +16,6 @@ local Rage = FinityWindow:Category("ABD")
 local Sas = Rage:Sector("Main Functions")
 local is = Rage:Sector("Secondary Functions")
 
--- Optimized functions
 local function DamagePlayer(target, params)
     local args = {
         target.Character.Humanoid,
@@ -34,25 +33,16 @@ local function DamagePlayer(target, params)
     SafeFire(game:GetService("ReplicatedStorage").Damage, unpack(args))
 end
 
--- Main Functions
 Sas:Cheat("Button", "Lag Server", function()
     while task.wait() do
-        SafeFire(game:GetService("ReplicatedStorage").PlayerStrongPunch, 
-            Vector3.new(9, 9, 9), 
-            Vector3.new(31, 21, 21), 
-            BrickColor.random()
-        )
+        SafeFire(game:GetService("ReplicatedStorage").PlayerStrongPunch, Vector3.new(9, 9, 9), Vector3.new(31, 21, 21), BrickColor.random())
     end
 end)
 
 Sas:Cheat("Button", "Kill All", function()
     for _, target in pairs(game:GetService("Players"):GetPlayers()) do
         if target ~= game.Players.LocalPlayer then
-            DamagePlayer(target, {
-                power = 100,
-                rage = 33,
-                force = Vector3.new(500, 500, 500)
-            })
+            DamagePlayer(target, {power = 100, rage = 33, force = Vector3.new(500, 500, 500)})
         end
     end
 end)
@@ -73,11 +63,7 @@ Sas:Cheat("Button", "Stun All", function()
     end
 end)
 
--- God Mode Toggles
-local godModes = {
-    Doppio = false,
-    Enderman = false
-}
+local godModes = {Doppio = false, Enderman = false}
 
 Sas:Cheat("Toggle", "God Mode 1", function(state)
     godModes.Doppio = state
@@ -95,7 +81,6 @@ Sas:Cheat("Toggle", "God Mode 2", function(state)
     end
 end)
 
--- Item Collection
 local function CollectItem(itemName)
     for _, item in pairs(game:GetService("Workspace").ItFolder:GetDescendants()) do
         if item.Name == itemName and item:IsA("Tool") then
@@ -113,7 +98,6 @@ is:Cheat("Button", "Collect Arrow", function()
     CollectItem("Arrow")
 end)
 
--- Anti-Cheat Bypass
 local function SafeAnchor(part, state)
     pcall(function()
         part.Anchored = state
@@ -128,39 +112,26 @@ is:Cheat("Button", "Anti-Freeze", function()
     end
 end)
 
--- Teleport Functions
 is:Cheat("Button", "Rejoin Server", function()
     game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
 end)
 
--- Optimized Loops
-local loopFunctions = {
-    PushAll = false,
-    DamageLoop = false
-}
+local loopFunctions = {PushAll = false, DamageLoop = false}
 
 Sas:Cheat("Toggle", "Push Loop", function(state)
     loopFunctions.PushAll = state
     while loopFunctions.PushAll do
         for _, target in pairs(game:GetService("Players"):GetPlayers()) do
             if target ~= game.Players.LocalPlayer then
-                SafeFire(game:GetService("ReplicatedStorage").CombatRemote, 
-                    "Push", 
-                    target.Character.Head, 
-                    1231123123123212312330.5
-                )
+                SafeFire(game:GetService("ReplicatedStorage").CombatRemote, "Push", target.Character.Head, 1231123123123212312330.5)
             end
         end
         task.wait(0.1)
     end
 end)
 
--- Security enhancements
-local originalFunctions = {
-    FireServer = getmetatable(game:GetService("ReplicatedStorage")).__index.FireServer
-}
+local originalFunctions = {FireServer = getmetatable(game:GetService("ReplicatedStorage")).__index.FireServer}
 
--- Cleanup on script termination
 game:GetService("Players").LocalPlayer.CharacterRemoving:Connect(function()
     for _, loop in pairs(loopFunctions) do
         loop = false
