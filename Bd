@@ -92,6 +92,10 @@ local function createToggle(name, pos, key)
         Config[key] = not Config[key]
         toggle.Text = name .. ": " .. (Config[key] and "ON" or "OFF")
         toggle.BackgroundColor3 = Config[key] and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(120, 0, 0)
+        
+        if key == "AutoFarm" and Config[key] then
+            autoPickup()
+        end
     end)
     toggle.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
     return toggle
@@ -213,4 +217,3 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 print("BD Safe Script Loaded! Press F to toggle")
-
