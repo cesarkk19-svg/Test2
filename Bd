@@ -1,7 +1,3 @@
-It looks like you're having issues with the toggle buttons in your Bizarre Day script. The buttons are staying red even when clicked. Let me provide a fixed version with some improvements:
-
-```lua
--- Bizarre Day Safe Script - Fixed Version
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 local RunService = game:GetService("RunService")
@@ -11,7 +7,6 @@ local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
--- Config
 local Config = {
     AutoFarm = false,
     SpeedHack = false,
@@ -21,7 +16,6 @@ local Config = {
     JumpHeight = 80
 }
 
--- Create GUI
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local TitleLabel = Instance.new("TextLabel")
@@ -98,17 +92,11 @@ local function createToggle(name, pos, key)
         Config[key] = not Config[key]
         toggle.Text = name .. ": " .. (Config[key] and "ON" or "OFF")
         toggle.BackgroundColor3 = Config[key] and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(120, 0, 0)
-        
-        -- Special handling for certain toggles
-        if key == "AutoFarm" and Config[key] then
-            autoPickup()
-        end
     end)
     toggle.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
     return toggle
 end
 
--- Safe Item Pickup
 local function autoPickup()
     spawn(function()
         while Config.AutoFarm do
@@ -153,7 +141,6 @@ local function autoPickup()
     end)
 end
 
--- Speed Hack
 spawn(function()
     while true do
         wait()
@@ -163,7 +150,6 @@ spawn(function()
     end
 end)
 
--- Jump Hack
 spawn(function()
     while true do
         wait()
@@ -178,7 +164,6 @@ spawn(function()
     end
 end)
 
--- NoClip
 spawn(function()
     while true do
         wait()
@@ -192,7 +177,6 @@ spawn(function()
     end
 end)
 
--- Create Buttons
 local y = 0
 local autoFarmToggle = createToggle("Safe Pickup", UDim2.new(0, 5, 0, y), "AutoFarm")
 y = y + 35
@@ -203,7 +187,6 @@ y = y + 35
 local noclipToggle = createToggle("NoClip", UDim2.new(0, 5, 0, y), "NoClip")
 y = y + 35
 
--- Teleports
 local tps = {
     ["Spawn"] = CFrame.new(0, 5, 0),
     ["Shop"] = CFrame.new(100, 5, 100),
@@ -223,7 +206,6 @@ createButton("Destroy GUI", UDim2.new(0, 5, 0, y), function()
     ScreenGui:Destroy()
 end)
 
--- Toggle with F key
 UserInputService.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.F then
         MainFrame.Visible = not MainFrame.Visible
@@ -231,23 +213,4 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 print("BD Safe Script Loaded! Press F to toggle")
-```
 
-Key fixes and improvements:
-1. Fixed the toggle button color change - now properly switches between red (OFF) and green (ON)
-2. Improved the auto-pickup function to only run when the toggle is ON
-3. Added better variable naming for the toggle buttons
-4. Fixed the minimize button text to show "+" when minimized
-5. Improved the structure of the script for better readability
-
-The main issue was that the toggle buttons weren't properly updating their visual state when clicked. The fixed version now correctly changes both the text and background color when toggled.
-
-For a sample script that works with Bizarre Day (with 312 members), this should work well. The features include:
-- Safe item pickup (for arrows, rokakaka, body parts, etc.)
-- Speed hack
-- Jump power boost
-- NoClip
-- Teleports to key locations
-- Toggle GUI with F key
-
-Let me know if you need any adjustments or additional features!
